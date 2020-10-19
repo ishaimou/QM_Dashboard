@@ -12,20 +12,20 @@ var interval;
 const tabListEvents = [
   {
     key: "all",
-    tab: "All"
+    tab: "All",
   },
   {
     key: "incident",
-    tab: "Quality incident"
+    tab: "Quality incident",
   },
   {
     key: "halt",
-    tab: "Halt"
+    tab: "Halt",
   },
   {
     key: "weather",
-    tab: "Weather"
-  }
+    tab: "Weather",
+  },
 ];
 
 const weatherIcons = {
@@ -35,13 +35,13 @@ const weatherIcons = {
   Snow: "wi-snow",
   Fog: "wi-fog",
   Clear: "wi-day-sunny",
-  Clouds: "wi-day-fog"
+  Clouds: "wi-day-fog",
 };
 
 const cities = [
   { key: "jorf", name: "JORF" },
   { key: "safi", name: "SAFI" },
-  { key: "casablanca", name: "CASA" }
+  { key: "casablanca", name: "CASA" },
 ];
 
 export class Indicators extends Component {
@@ -66,7 +66,7 @@ export class Indicators extends Component {
       all: null,
       incident: null,
       halt: null,
-      weather: null
+      weather: null,
     };
     this.getWeather = this.getWeather.bind(this);
     this.getDate = this.getDate.bind(this);
@@ -89,7 +89,7 @@ export class Indicators extends Component {
     Axios.get(
       `${api_weather}find?q=${this.state.weatherKey},ma&units=metric&appid=${api_key}`
     )
-      .then(resp => {
+      .then((resp) => {
         const list = resp.data.list[0];
         if (list) {
           this.setState(
@@ -100,7 +100,7 @@ export class Indicators extends Component {
               wind: list.wind.speed,
               humidity: list.main.humidity,
               desc: list.weather[0].description,
-              idIcon: list.weather[0].id
+              idIcon: list.weather[0].id,
             },
             () => {
               this.getWeatherIcon(weatherIcons, this.state.idIcon);
@@ -108,7 +108,7 @@ export class Indicators extends Component {
           );
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   getWeatherIcon(weatherIcons, id) {
@@ -145,7 +145,7 @@ export class Indicators extends Component {
 
   getDate() {
     interval = setInterval(
-      function() {
+      function () {
         this.setState({ date: moment(Date.now()).format("dddd, h:mm A") });
       }.bind(this),
       1000
@@ -154,27 +154,27 @@ export class Indicators extends Component {
 
   getInspections() {
     Axios.get(`${api}inspection/events/counts`)
-      .then(response => {
+      .then((response) => {
         let data = response.data;
         let ongoing = data.INPROGRESS;
         let onhold = data.ONHOLD;
         this.setState({ onhold, ongoing, active: false });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   getEvents() {
     const requestURL = `${api}incidentdetails/?resuming_hour=null&inspection_ref__inspection_status=ONHOLD&ordering=-stopping_hour`;
     Axios.get(requestURL)
-      .then(response => {
+      .then((response) => {
         let data = response.data;
-        let incident = data.filter(item => item.related === "PRODUCT").length;
-        let halt = data.filter(item => item.related === "HALT").length;
-        let weather = data.filter(item => item.related === "WEATHER").length;
+        let incident = data.filter((item) => item.related === "PRODUCT").length;
+        let halt = data.filter((item) => item.related === "HALT").length;
+        let weather = data.filter((item) => item.related === "WEATHER").length;
         let all = incident + halt + weather;
         this.setState({ incident, halt, weather, all });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handleUpdate() {
@@ -197,19 +197,19 @@ export class Indicators extends Component {
         case "incident":
           this.props.history.push("/events", {
             type: "ONHOLD",
-            related: "PRODUCT"
+            related: "PRODUCT",
           });
           break;
         case "halt":
           this.props.history.push("/events", {
             type: "ONHOLD",
-            related: "HALT"
+            related: "HALT",
           });
           break;
         case "weather":
           this.props.history.push("/events", {
             type: "ONHOLD",
-            related: "WEATHER"
+            related: "WEATHER",
           });
           break;
         default:
@@ -262,7 +262,7 @@ export class Indicators extends Component {
         >
           {this.state.weather}
         </span>
-      )
+      ),
     };
   }
 
@@ -294,7 +294,7 @@ export class Indicators extends Component {
                   type="sync"
                 />
                 Update Now
-              </span>
+              </span>,
             ]}
             bordered={false}
           >
@@ -354,7 +354,7 @@ export class Indicators extends Component {
             bordered={false}
             tabList={tabListEvents}
             activeTabKey={this.state.eventsKey}
-            onTabChange={key => {
+            onTabChange={(key) => {
               this.onTabChange(key, "eventsKey");
             }}
           >
@@ -383,7 +383,7 @@ export class Indicators extends Component {
                             ? this.state.checked
                             : !this.state.checked
                         }
-                        onChange={checked => {
+                        onChange={(checked) => {
                           this.handleChange(city.key, checked);
                         }}
                       >

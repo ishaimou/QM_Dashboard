@@ -9,33 +9,33 @@ const columns = [
   {
     title: "Date",
     dataIndex: "date",
-    key: "date"
+    key: "date",
   },
   {
     title: "Port",
     dataIndex: "port",
-    key: "port"
+    key: "port",
   },
   {
     title: "Dock",
     dataIndex: "dock",
-    key: "dock"
+    key: "dock",
   },
   {
     title: "Vessel",
     dataIndex: "vessel",
-    key: "vessel"
+    key: "vessel",
   },
   {
     title: "Inspector",
     dataIndex: "inspector",
-    key: "inspector"
+    key: "inspector",
   },
   {
     title: "Event",
     dataIndex: "event",
-    key: "event"
-  }
+    key: "event",
+  },
 ];
 
 const get_event = (data, type) => {
@@ -49,7 +49,7 @@ const get_event = (data, type) => {
   }
 };
 
-const get_inspector = data => {
+const get_inspector = (data) => {
   let first_name = data.user.first_name;
   let last_name = data.user.last_name;
   if (first_name !== null && last_name !== null) {
@@ -70,7 +70,7 @@ export class TableEvent extends Component {
       datasource: [],
       type: "ONHOLD",
       related: "",
-      resuming_hour: "null"
+      resuming_hour: "null",
     };
     this.onFetchData = this.onFetchData.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -122,10 +122,11 @@ export class TableEvent extends Component {
     let dataSource = [];
     axios
       .get(requestURL)
-      .then(res => {
+      .then((res) => {
+        console.log(res.data);
         let i = 0;
-        let dataLength = res.data.length;
-        let data = res.data;
+        let data = res.data.results;
+        let dataLength = data.length;
         let event;
         let inspector;
         let date;
@@ -140,16 +141,16 @@ export class TableEvent extends Component {
             dock: data[i].inspection.docks,
             vessel: data[i].inspection.vessel,
             inspector: inspector,
-            event: event
+            event: event,
           });
         }
         this.setState({
           isLoading: false,
           tabLoading: false,
-          dataSource
+          dataSource,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }

@@ -10,7 +10,7 @@ class UsersList extends Component {
   //Fetch users
   fetchUsersList = async () => {
     const { fetchUsers } = this.props;
-    await fetchUsers()
+    await fetchUsers();
   };
 
   //Update User status
@@ -51,12 +51,11 @@ class UsersList extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    users: state.users.users,
-    error: state.users.error
-  };
-};
+const mapStateToProps = (state) => ({
+  users: state.users.users,
+  error: state.users.error,
+});
+
 export default connect(mapStateToProps, { fetchUsers, DisableEnableUser })(
   UsersList
 );
