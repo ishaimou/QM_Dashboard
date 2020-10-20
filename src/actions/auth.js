@@ -80,7 +80,7 @@ export const register = form => dispatch => {
     }
   };
   axios
-    .post(api + "create/", body, config)
+    .post(api + "user/create/", body, config)
     .then(() => {
       dispatch({ type: REGISTERED });
     })

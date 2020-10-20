@@ -17,7 +17,7 @@ class Category extends Component {
                 this.props.PostCategory(values)
                 .then(res => {
                     if (res.type === CATEGORY_INSERT_SUCCESS)
-                        successNotifiaction("Category has been added successfuly")
+                        successNotifiaction("Product Category has been added successfuly")
                 })
             }
         });

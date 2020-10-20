@@ -3,6 +3,8 @@ import { Form, Input, Icon, Button, Select } from 'antd';
 import { FetchType, PostFamily } from '../../actions/product';
 import { connect } from 'react-redux';
 import { openNotification } from '../NotificationMessages';
+import { FAMILY_INSERT_SUCCESS } from '../../actions/types';
+import { successNotifiaction } from '../NotificationMessages';
 
 
 const { Option } = Select;
@@ -15,6 +17,11 @@ class Family extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.props.PostFamily(values)
+                .then(res => {
+                    if (res.type == FAMILY_INSERT_SUCCESS) {
+                        successNotifiaction("Product Family has been added successfuly")
+                    }
+                })
             }
         });
     };
