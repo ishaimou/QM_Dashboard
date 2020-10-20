@@ -16,7 +16,7 @@ class Type extends Component {
                 this.props.PostType(values)
                 .then(res => {
                     if (res.type === TYPE_INSERT_SUCCESS)
-                        successNotifiaction("Product type has been added successfuly")
+                        successNotifiaction("Product Type has been added successfuly")
                 })
             }
         });

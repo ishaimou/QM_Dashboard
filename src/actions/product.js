@@ -61,7 +61,6 @@ export const PostProduct = (data) => async (dispatch) => {
     });
   });
   if (response.status === 201) {
-    console.log("POST PRODUCT DATA: ", response.data); //!!!!!!!!!!!!!!
     return dispatch({ type: PRODUCT_INSERT_SUCCESS, payload: response.data });
   }
   return response;

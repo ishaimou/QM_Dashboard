@@ -168,7 +168,6 @@ export class Indicators extends Component {
     Axios.get(requestURL)
       .then((response) => {
         let data = response.data.results;
-        console.log("getEvents data:", data); //!!!!!!!!!!!!!
         let incident = data.filter((item) => item.related === "PRODUCT").length;
         let halt = data.filter((item) => item.related === "HALT").length;
         let weather = data.filter((item) => item.related === "WEATHER").length;

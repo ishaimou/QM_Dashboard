@@ -3,6 +3,8 @@ import { Form, Input, Icon, Button, Select } from 'antd';
 import { FetchCategroy, PostProduct } from '../../actions/product';
 import { connect } from 'react-redux';
 import { openNotification } from '../NotificationMessages';
+import { PRODUCT_INSERT_SUCCESS } from '../../actions/types';
+import { successNotifiaction } from '../NotificationMessages';
 
 
 const { Option } = Select;
@@ -12,9 +14,13 @@ class Product extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log(values)
             if (!err) {
                 this.props.PostProduct(values)
+                .then(res => {
+                    if (res.type == PRODUCT_INSERT_SUCCESS) {
+                        successNotifiaction("Product has been added successfuly")
+                    }
+                })
             }
         });
     };
