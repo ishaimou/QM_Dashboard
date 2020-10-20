@@ -273,6 +273,7 @@ class Stoppage extends Component {
     let requestPieChart = `${api}incidentpiechart/?start_date=${this.getRange()}&end_date=${moment().format(
       "YYYY-MM-DD"
     )}`;
+    console.log(requestPieChart);
     let requestAreaChart = `${api}incidentchart/`;
     axios
       .all([axios.get(requestPieChart), axios.get(requestAreaChart)])
@@ -292,7 +293,7 @@ class Stoppage extends Component {
             name: capitalize(key),
             y: moment.duration({ seconds: seconds }).asHours(),
             drilldown: key,
-            color: getColor(key)
+            color: getColor(capitalize(key))
           });
         });
         pieSeries.push({
@@ -309,7 +310,8 @@ class Stoppage extends Component {
         Object.keys(resArea).forEach(key => {
           AreaSeries.push({
             name: capitalize(key),
-            data: getAreaData(resArea[key])
+            data: getAreaData(resArea[key]),
+            color: getColor(capitalize(key))
           });
           if (key === "halt") {
             AreaHaltSeries = getAreaDrillDownData(resArea[key]);

@@ -123,7 +123,7 @@ export class TableEvent extends Component {
     axios
       .get(requestURL)
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data);//!!!!!!!!!!!
         let i = 0;
         let data = res.data.results;
         let dataLength = data.length;
